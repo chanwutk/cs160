@@ -1,1 +1,1 @@
-# cs160
+# CS 160: UI Design & Implementation
