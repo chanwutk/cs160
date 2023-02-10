@@ -1,0 +1,32 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build_assignments:
+    name: Build and Deploy All Assignments
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up Git repository
+      uses: actions/checkout@v3
+    
+    - name: Setup Deploy Folder
+      run: |
+        rm -rf ./deploy
+        mkdir ./deploy
+    
+    - name: Build A1
+      run: |
+        cp -r a1 ./deploy/a1
+    
+    - name: Add Home Page
+      run: cp ./README.md ./deploy/README.md
+
+    - name: Publish Website
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: 'deploy'
+        single-commit: true
