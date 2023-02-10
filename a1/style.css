@@ -1,0 +1,35 @@
+.vehicle-button {
+  cursor: pointer;
+  margin: 5px;
+  padding: 5px;
+  width: 200px;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+
+.vehicle-button:hover {
+  background-color: rgb(237, 237, 237);
+}
+
+.vehicle-button-pressed,
+.vehicle-button-pressed:hover {
+  color: white;
+  background-color: black;
+}
+
+.not-interesting-value {
+  color: lightgrey;
+}
+
+.vehicle-button-inactive {
+  border-color: lightgrey;
+  color: lightgrey;
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
