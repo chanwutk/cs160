@@ -12,11 +12,14 @@
     { type: 'Hovertrax Hoverboard', speed: 9, range: 6 },
   ].map((d, i) => ({ ...d, color: d3.schemeCategory10[i], timeLimit: d.range / d.speed }));
 
+  const buttonWidth = 200;
+  const progressBarWidth = buttonWidth - 15;
   const buttons = {};
   const vehicleButtons = document.querySelector('#vehicle-buttons');
   data.forEach(d => {
     const button = document.createElement('div');
     button.className = "vehicle-button";
+    button.style = `width: ${buttonWidth}px`
     button.onclick = () => setState({ type: d.type });
 
     const head = document.createElement('h6');
@@ -25,7 +28,7 @@
     button.appendChild(head);
 
     const progressBox = document.createElement('div');
-    progressBox.style = 'width: 200; height: 5';
+    progressBox.style = `width: ${progressBarWidth}px; height: 5`;
     progressBox.className = 'd-flex progress-box';
     progressBox.innerHTML = '<div class="progress-left"></div><div class="progress-right"></div>';
     button.appendChild(progressBox);
@@ -141,8 +144,8 @@
 
       const percentProgress = getPercentProgress(state, d, data);
 
-      progressLeft.style = `width: ${200 * percentProgress}px`;
-      progressRight.style = `width: ${200 * (1 - percentProgress)}px`;
+      progressLeft.style = `width: ${(progressBarWidth) * percentProgress}px`;
+      progressRight.style = `width: ${(progressBarWidth) * (1 - percentProgress)}px`;
 
       if (isValid(state, currentVehicle, d)) {
         removeClass(button, 'vehicle-button-inactive')
