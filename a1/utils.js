@@ -12,13 +12,25 @@ function addClass(elm, className) {
 }
 
 function getTime(state, currentVehicle, d) {
-  return 60 * (state.conversion ? Math.min(state.distance, d.range) / d.speed : Math.min(state.distance / currentVehicle.speed, d.range / d.speed))
+  return 60 * (state.conversion
+    ? Math.min(state.distance, d.range) / d.speed
+    : Math.min(state.distance / currentVehicle.speed, d.range / d.speed))
 }
 
 function getDistance(state, currentVehicle, d) {
-  return state.conversion ? Math.min(state.distance, d.range) : Math.min(d.speed * state.distance / currentVehicle.speed, d.range);
+  return state.conversion
+    ? Math.min(state.distance, d.range)
+    : Math.min(d.speed * state.distance / currentVehicle.speed, d.range);
+}
+
+function getPercentProgress(state, d, data) {
+  return state.conversion
+    ? Math.min((state.distance / d.speed), d.timeLimit) / Math.max(...data.map(d => d.timeLimit))
+    : Math.min(state.time * d.speed, d.range) / Math.max(...data.map(d => d.range));
 }
 
 function isValid(state, currentVehicle, d) {
-  return state.conversion ? (state.distance <= d.range) : (state.distance / currentVehicle.speed <= d.range / d.speed);
+  return state.conversion
+    ? (state.distance <= d.range)
+    : (state.distance / currentVehicle.speed <= d.range / d.speed);
 }

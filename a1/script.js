@@ -10,40 +10,39 @@
     { type: 'Razor Scooter', speed: 18, range: 15 },
     { type: 'GeoBlade 500', speed: 15, range: 8 },
     { type: 'Hovertrax Hoverboard', speed: 9, range: 6 },
-  ].map((d, i) => ({ ...d, color: d3.schemeCategory10[i] }));
+  ].map((d, i) => ({ ...d, color: d3.schemeCategory10[i], timeLimit: d.range / d.speed }));
 
   const buttons = {};
   const vehicleButtons = document.querySelector('#vehicle-buttons');
   data.forEach(d => {
-    const child = document.createElement('div');
-    child.className = "vehicle-button";
-    child.onclick = () => setState({ type: d.type });
+    const button = document.createElement('div');
+    button.className = "vehicle-button";
+    button.onclick = () => setState({ type: d.type });
 
     const head = document.createElement('h6');
     head.innerHTML = `<span class="dot" style="background-color: ${d.color}"></span> ${d.type}`;
     head.style = 'font-size: 14px'
-    child.appendChild(head)
+    button.appendChild(head);
+
+    const progressBox = document.createElement('div');
+    progressBox.style = 'width: 200; height: 5';
+    progressBox.className = 'd-flex progress-box';
+    progressBox.innerHTML = '<div class="progress-left"></div><div class="progress-right"></div>';
+    button.appendChild(progressBox);
 
     const distanceBox = document.createElement('div');
     distanceBox.className = "d-flex justify-content-between";
-    const distanceText = document.createElement('span');
-    distanceText.innerText = 'Distance:';
-    distanceBox.appendChild(distanceText);
-    distanceBox.appendChild(document.createElement('span'));
-    child.appendChild(distanceBox);
+    distanceBox.innerHTML = 'Distance <span class="distance-value"></span>'
+    button.appendChild(distanceBox);
 
     const timeBox = document.createElement('div');
     timeBox.className = "d-flex justify-content-between";
-    const timeText = document.createElement('span');
-    timeText.innerText = 'Time:';
-    timeBox.appendChild(timeText);
-    timeBox.appendChild(document.createElement('span'));
-    child.appendChild(timeBox);
+    timeBox.innerHTML = 'Time <span class="time-value"></span>'
+    button.appendChild(timeBox);
 
-    vehicleButtons.appendChild(child);
-    buttons[d.type] = child;
+    vehicleButtons.appendChild(button);
+    buttons[d.type] = button;
   })
-
 
   const distanceSlider = document.querySelector('#distance-slider');
   distanceSlider.addEventListener('input', event => {
@@ -105,6 +104,7 @@
   const state = {
     type: null,
     distance: null,
+    time: null,
     conversion: null,
   };
 
@@ -117,6 +117,8 @@
     if (!currentVehicle) {
       alert(state.type, 'not found');
     }
+    state.time = state.distance / currentVehicle.speed
+
     distanceSlider.setAttribute('max', currentVehicle.range);
     if (currentVehicle.range < state.distance) {
       state.distance = parseFloat(currentVehicle.range);
@@ -127,16 +129,29 @@
 
     data.forEach(d => {
       const button = buttons[d.type];
-      const distanceBox = button.children[1].children[1];
-      const timeBox = button.children[2].children[1];
+      const distanceBox = button.querySelector('.distance-value');
+      const timeBox = button.querySelector('.time-value');
 
       distanceBox.innerText = `${format2(getDistance(state, currentVehicle, d))} Miles`;
       timeBox.innerText = `${format2(getTime(state, currentVehicle, d))} Minutes`;
 
+      const progressLeft = button.querySelector('.progress-left');
+      const progressRight = button.querySelector('.progress-right');
+      const progressBox = button.querySelector('.progress-box');
+
+      const percentProgress = getPercentProgress(state, d, data);
+
+      progressLeft.style = `width: ${200 * percentProgress}px`;
+      progressRight.style = `width: ${200 * (1 - percentProgress)}px`;
+
       if (isValid(state, currentVehicle, d)) {
         removeClass(button, 'vehicle-button-inactive')
+        removeClass(progressLeft, 'progress-left-invalid');
+        removeClass(progressBox, 'progress-box-invalid');
       } else {
         addClass(button, 'vehicle-button-inactive')
+        addClass(progressLeft, 'progress-left-invalid');
+        addClass(progressBox, 'progress-box-invalid');
       }
 
       if (state.conversion) {

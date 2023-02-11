@@ -33,3 +33,27 @@
   border-radius: 50%;
   display: inline-block;
 }
+
+.progress-left {
+  height: 5px;
+  /* border-radius: 3px; */
+  background-color: green;
+}
+
+.progress-left-invalid {
+  background-color: rgb(237, 237, 237);
+}
+
+.progress-box {
+  border: 1px solid black;
+}
+
+.progress-box-invalid {
+  border-color: rgb(237, 237, 237);
+}
+
+.progress-right {
+  height: 5px;
+  /* border-radius: 3px; */
+  background-color: white;
+}
