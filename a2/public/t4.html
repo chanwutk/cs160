@@ -38,25 +38,26 @@
 
   <script type="text/javascript">
 	// your solution here
-  const lat = 37.8715;
-  const lon = -122.2730;
-  const apikey = '88ae0b3d0f6b8589323118c865d92c87';
-  fetch(`https://api.openweathermap.org/data/2.5/forecast?units=imperial&lat=${lat}&lon=${lon}&appid=${apikey}`)
-    .then(response => response.json())
-    .then(data => {
-      data.list.slice(0, 8).forEach(({dt, dt_txt, wind: {speed}, weather: [{main, description}, ..._], main: {temp}}) => {
-        const container = $('<li class="d-flex flex-column p-2"></li>')
-        container.append(`<div><strong>Date</strong>: ${new Date(dt * 1000)}</div>`)
-        container.append(`<div><strong>Weather</strong>: ${main} (${description})</div>`)
-        container.append(`<div><strong>Wind speed</strong>: ${speed} MpH</div>`)
-        container.append(`<div><strong>Temperature</strong>: ${temp} F</div>`)
-        $('#weather-container').append(container)
-      });
-    })
-  $('#current-time').html(`${new Date(Date.now())}`);
-  $('#lat').html(lat);
-  $('#lon').html(lon);
-
+  (function () {
+    const lat = 37.8715;
+    const lon = -122.2730;
+    const apikey = '88ae0b3d0f6b8589323118c865d92c87';
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?units=imperial&lat=${lat}&lon=${lon}&appid=${apikey}`)
+      .then(response => response.json())
+      .then(data => {
+        data.list.slice(0, 8).forEach(({dt, dt_txt, wind: {speed}, weather: [{main, description}, ..._], main: {temp}}) => {
+          const container = $('<li class="d-flex flex-column p-2"></li>')
+          container.append(`<div><strong>Date</strong>: ${new Date(dt * 1000)}</div>`)
+          container.append(`<div><strong>Weather</strong>: ${main} (${description})</div>`)
+          container.append(`<div><strong>Wind speed</strong>: ${speed} MpH</div>`)
+          container.append(`<div><strong>Temperature</strong>: ${temp} F</div>`)
+          $('#weather-container').append(container)
+        });
+      })
+    $('#current-time').html(`${new Date(Date.now())}`);
+    $('#lat').html(lat);
+    $('#lon').html(lon);
+  })();
   </script>
 </body>
 

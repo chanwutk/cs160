@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Task 6</title>
 
-  <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
-  <!-- let's include the css file for bootstrap, then our custom css -->
-  <link rel="stylesheet" type="text/css" href="/vendors/bootstrap/css/bootstrap.css" />
-  <link rel="stylesheet" type="text/css" href="/css/main.css" />
-  
-  <!-- let's also include these jquery scripts. -->
-  <script src="/vendors/jquery/jquery-3.3.1.min.js"></script>
-  <script src="/vendors/jquery-ui/jquery-ui.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+	<!-- let's include the css file for bootstrap, then our custom css -->
+	<link rel="stylesheet" type="text/css" href="/vendors/bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="/css/main.css" />
+
+	<!-- let's also include these jquery scripts. -->
+	<script src="/vendors/jquery/jquery-3.3.1.min.js"></script>
+	<script src="/vendors/jquery-ui/jquery-ui.min.js"></script>
 
 	<style type="text/css">
-
 		.large-box {
 			width: 200px;
 			height: 200px;
@@ -28,41 +28,67 @@
 			background: grey;
 			padding: 5px;
 		}
-
 	</style>
 
 </head>
 
 <body>
 	<div class="container">
-		    <div class="row">
-      <a href="/" class="btn btn-light float-right">
-          Back
-      </a>
-    </div>
+		<div class="row">
+			<a href="/" class="btn btn-light float-right">
+				Back
+			</a>
+		</div>
 		<div class="row">
 			<div class="col-12">
 				<h3>Task 6</h3>
 				<div class="shape-container">
 					<div id="origin-box" class="large-box">
 						<div id="drag-box" class="small-box text-light">
-						  <p>Box</p>
+							<p>Box</p>
 						</div>
 					</div>
 
 					<div id="drop-box-2" class="large-box">
-					  <p>Drop here</p>
+						<p>Dropzone #1</p>
 					</div>
-					 
+
 					<div id="drop-box-1" class="large-box">
-					  <p>Drop here</p>
+						<p>Dropzone #2</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-  <script>
+	<script>
 	  // your solution here
-  </script>
+		(function () {
+			$('#drag-box').draggable({
+				revert: 'invalid'
+			});
+			['red', 'blue'].forEach((color, i) => {
+				$(`#drop-box-${i + 1}`).droppable({
+					drop: function(event, ui) {
+						$('#drag-box').css('background-color', 'dark' + color);
+					},
+					over: function(event, ui) {
+						$('#drag-box').css('background-color', color);
+					},
+					out: function(event, ui) {
+						$('#drag-box').css('background-color', 'grey');
+					},
+				});
+			})
+			$(`#origin-box`).droppable({
+				drop: function(event, ui) {
+					$('#drag-box').css('background-color', 'grey');
+				},
+				over: function(event, ui) {
+					$('#drag-box').css('background-color', 'grey');
+				}
+			});
+		})();
+	</script>
 </body>
+
 </html>

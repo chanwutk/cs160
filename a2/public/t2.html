@@ -47,10 +47,11 @@
   <script type="text/javascript">
 
   // your solution here
-  const shapeContainer = $('.shape-container');
-  const handle = setInterval(() => shapeContainer.append($(`<div class="p2-circle bg-blue"></div>`)), 1000);
-  $('button').click(() => clearInterval(handle));
-
+  (function() {
+    const shapeContainer = $('.shape-container');
+    const handle = setInterval(() => shapeContainer.append($(`<div class="p2-circle bg-blue"></div>`)), 1000);
+    $('button').click(() => clearInterval(handle));
+  })();
   </script>
 </body>
 
