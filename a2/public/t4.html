@@ -1,33 +1,63 @@
 <!DOCTYPE html>
 
 <html>
+
 <head>
-	<title></title>
+  <title></title>
 
   <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
   <!-- let's include the css file for bootstrap, then our custom css -->
   <link rel="stylesheet" type="text/css" href="/vendors/bootstrap/css/bootstrap.css" />
   <link rel="stylesheet" type="text/css" href="/css/main.css" />
-  
+
   <!-- let's also include these jquery scripts. -->
   <script src="/vendors/jquery/jquery-3.3.1.min.js"></script>
   <script src="/vendors/jquery-ui/jquery-ui.min.js"></script>
 </head>
+
 <body>
-    <div class="container">
-        <div class="row">
-          <a href="/" class="btn btn-light float-right">
-              Back
-          </a>
-      </div>
+  <div class="container">
+    <div class="row">
+      <a href="/" class="btn btn-light float-right">
+        Back
+      </a>
+    </div>
+		<div class="row">
+			<div class="col-12">
+				<h3>Task 4</h3>
+        <div>Current Time: <span id="current-time"></span></div>
+        <div>Location: Berkeley (lat=<span id="lat"></span> lon=<span id="lon"></span>)</div>
+        <ul id="weather-container">
+        </ul>
+			</div>
+		</div>
   </div>
-  
+
   <!-- Your weather forecast here! -->
+
 
   <script type="text/javascript">
 	// your solution here
+  const lat = 37.8715;
+  const lon = -122.2730;
+  const apikey = '88ae0b3d0f6b8589323118c865d92c87';
+  fetch(`https://api.openweathermap.org/data/2.5/forecast?units=imperial&lat=${lat}&lon=${lon}&appid=${apikey}`)
+    .then(response => response.json())
+    .then(data => {
+      data.list.slice(0, 8).forEach(({dt, dt_txt, wind: {speed}, weather: [{main, description}, ..._], main: {temp}}) => {
+        const container = $('<li class="d-flex flex-column p-2"></li>')
+        container.append(`<div><strong>Date</strong>: ${new Date(dt * 1000)}</div>`)
+        container.append(`<div><strong>Weather</strong>: ${main} (${description})</div>`)
+        container.append(`<div><strong>Wind speed</strong>: ${speed} MpH</div>`)
+        container.append(`<div><strong>Temperature</strong>: ${temp} F</div>`)
+        $('#weather-container').append(container)
+      });
+    })
+  $('#current-time').html(`${new Date(Date.now())}`);
+  $('#lat').html(lat);
+  $('#lon').html(lon);
 
-
-</script>
+  </script>
 </body>
+
 </html>
