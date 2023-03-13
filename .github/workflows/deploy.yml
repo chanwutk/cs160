@@ -27,7 +27,7 @@ jobs:
     
     - name: Build A2
       run: |
-        cp -r a2 ./deploy/a2
+        cp -r a2/public/* ./deploy/a2/
     
     - name: Add Home Page
       run: cp ./README.md ./deploy/README.md
