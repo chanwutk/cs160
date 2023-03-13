@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Task 1</title>
 
@@ -7,7 +8,7 @@
   <!-- let's include the css file for bootstrap, then our custom css -->
   <link rel="stylesheet" type="text/css" href="/vendors/bootstrap/css/bootstrap.css" />
   <link rel="stylesheet" type="text/css" href="/css/main.css" />
-  
+
   <!-- let's also include these jquery scripts. -->
   <script src="/vendors/jquery/jquery-3.3.1.min.js"></script>
   <script src="/vendors/jquery-ui/jquery-ui.min.js"></script>
@@ -18,7 +19,7 @@
   <div class="container">
     <div class="row">
       <a href="/" class="btn btn-light float-right">
-          Back
+        Back
       </a>
     </div>
     <div class="row">
@@ -63,13 +64,20 @@
         </div>
       </div>
     </div>
-      
+
   </div>
 
 
-<script type="text/javascript">
-  // your solution here
-
-</script>
+  <script type="text/javascript">
+    // your solution here
+    (function () {
+      $('.bg-purple').click(() => $('.bg-purple').hide());
+      $('.bg-green').click(() => $('.bg-green,.bg-blue').hide());
+      $('.bg-orange.p2-border').click(() => $('.bg-orange.p2-border').hide());
+      $('#gradient-circle').hover(() => $('#gradient-circle').hide());
+      $('button').click(() => $('.shape-container *').show());
+    })();
+  </script>
 </body>
+
 </html>
