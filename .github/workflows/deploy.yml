@@ -27,6 +27,7 @@ jobs:
     
     - name: Build A2
       run: |
+        mkdir ./deploy/a2
         cp -r a2/public/* ./deploy/a2/
     
     - name: Add Home Page
