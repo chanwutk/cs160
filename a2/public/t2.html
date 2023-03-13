@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Task 2</title>
 
@@ -7,7 +8,7 @@
   <!-- let's include the css file for bootstrap, then our custom css -->
   <link rel="stylesheet" type="text/css" href="/vendors/bootstrap/css/bootstrap.css" />
   <link rel="stylesheet" type="text/css" href="/css/main.css" />
-  
+
   <!-- let's also include these jquery scripts. -->
   <script src="/vendors/jquery/jquery-3.3.1.min.js"></script>
   <script src="/vendors/jquery-ui/jquery-ui.min.js"></script>
@@ -18,7 +19,7 @@
   <div class="container">
     <div class="row">
       <a href="/" class="btn btn-light float-right">
-          Back
+        Back
       </a>
     </div>
     <div class="row">
@@ -43,10 +44,14 @@
   </div>
 
 
-<script type="text/javascript">
+  <script type="text/javascript">
 
   // your solution here
+  const shapeContainer = $('.shape-container');
+  const handle = setInterval(() => shapeContainer.append($(`<div class="p2-circle bg-blue"></div>`)), 1000);
+  $('button').click(() => clearInterval(handle));
 
-</script>
+  </script>
 </body>
+
 </html>
