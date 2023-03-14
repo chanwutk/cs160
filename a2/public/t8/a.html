@@ -15,15 +15,27 @@
 </head>
 <body>
 	<!-- Your layout here -->
-	<div class="bg-purple d-flex align-content-center flex-wrap justify-content-between" style="width: 100%; height: 100%">
-		<div class="bg-purple d-flex justify-content-center align-items-center" style="width: 20%; height: 20%"><div class="bg-orange" style="width: 95%; height: 90%"></div></div>
-		<div class="bg-purple d-flex justify-content-center align-items-center" style="width: 20%; height: 20%"><div class="bg-orange" style="width: 95%; height: 90%"></div></div>
-		<div class="bg-purple d-flex justify-content-center align-items-center" style="width: 20%; height: 20%"><div class="bg-orange" style="width: 95%; height: 90%"></div></div>
-		<div class="bg-purple d-flex justify-content-center align-items-center" style="width: 20%; height: 20%"><div class="bg-orange" style="width: 95%; height: 90%"></div></div>
-		<div class="bg-purple d-flex justify-content-center align-items-center" style="width: 20%; height: 20%"><div class="bg-orange" style="width: 95%; height: 90%"></div></div>
-		<div class="bg-purple d-flex justify-content-center align-items-center" style="width: 20%; height: 20%"><div class="bg-orange" style="width: 95%; height: 90%"></div></div>
-		<div class="bg-purple d-flex justify-content-center align-items-center" style="width: 20%; height: 20%"><div class="bg-orange" style="width: 95%; height: 90%"></div></div>
-		<div class="bg-purple d-flex justify-content-center align-items-center" style="width: 20%; height: 20%"><div class="bg-orange" style="width: 95%; height: 90%"></div></div>
-	</div>
+	<style>
+		.container-box {
+			width: 20%;
+			height: 33%;
+		}
+		.orange-box {
+			width: 95%;
+			height: 95%;
+		}
+	</style>
+	<div
+		class="bg-purple d-flex align-content-center flex-wrap justify-content-between purple-container"
+		id="container"
+		style="width: 100%; height: 100%"
+	></div>
+	<script>
+		const box = `<div class="bg-purple d-flex justify-content-center align-items-center container-box">
+			<div class="bg-orange orange-box" />
+		</div>`;
+		const addBox = () => $('#container').append(box);
+		[...new Array(8)].map(addBox);
+	</script>
 </body>
 </html>

@@ -15,6 +15,20 @@
 </head>
 <body>
 	<!-- Your layout here -->
-
+	<style>
+		.orange-box {
+			width: 18%;
+			height: 30%;
+		}
+	</style>
+	<div
+		class="bg-purple d-flex align-content-center flex-wrap justify-content-around align-content-around"
+		id="container"
+		style="width: 100%; height: 100%"
+	/>
+	<script>
+		const add = () => $('#container').append('<div class="bg-orange orange-box" />');
+		[...new Array(15)].map(add);
+	</script>
 </body>
 </html>
